@@ -8,9 +8,7 @@
 </head>
 <body>
     <header>
-        <h1 id="app-title">Helpick</h1>
-        <p id="app-subtitle">Your Ai Super Help</p>
-        <div class="lang-flags">
+        <div class="lang-flags lang-flags-left">
             <img src="fr.png" alt="FR" id="lang-fr">
             <img src="de.png" alt="DE" id="lang-de">
             <img src="gb.png" alt="EN" id="lang-en">
@@ -18,9 +16,25 @@
             <img src="es.png" alt="ES" id="lang-es">
             <img src="ro.png" alt="RO" id="lang-ro">
         </div>
+        <h1 id="app-title">Helpick</h1>
+        <p id="app-subtitle">Your Ai Super Help</p>
     </header>
     <main>
         <section class="main-cards">
+            <div class="card" id="card-unde-merg">
+                <h2 id="card-unde-merg-title">Unde merg</h2>
+                <p id="card-unde-merg-desc">Restaurant, hotel, market</p>
+            </div>
+            <div class="card" id="card-ce-ascult">
+                <h2 id="card-ce-ascult-title">Ce ascult</h2>
+                <p id="card-ce-ascult-desc">YouTube, Spotify, Radio</p>
+            </div>
+            <div class="card" id="card-ce-gatesc">
+                <h2 id="card-ce-gatesc-title">Ce gătesc</h2>
+                <p id="card-ce-gatesc-desc">Rețete culinare</p>
+            </div>
+        </section>
+        <section class="chat-unic-section">
             <div class="card" id="card-chat-unic">
                 <h2 id="card-chat-title">Interogare rapidă</h2>
                 <p id="card-chat-desc">Caută restaurante, muzică sau rețete cu text sau voce</p>
@@ -37,8 +51,13 @@
             <button id="voice-btn">🎤</button>
         </section>
         <section class="email-section">
+        <div class="email-info">
+            <span class="email-expl">📧 Submit your email for the upcoming super-helpick plans</span>
+        </div>
+        <div class="email-form">
             <input type="email" id="email-input" placeholder="Email here">
             <button id="email-btn">Submit</button>
+        </div>
         </section>
         <section class="gdpr-section">
             <input type="checkbox" id="gdpr-checkbox">
