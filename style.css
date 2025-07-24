@@ -1,0 +1,24 @@
+body {
+font-family: Arial, sans-serif;
+text-align: center;
+padding: 2em;
+background-color: #f9f9f9;
+}
+
+h1 {
+color: #222;
+}
+
+#start-btn {
+padding: 1em 2em;
+font-size: 1.2em;
+margin-top: 20px;
+cursor: pointer;
+}
+
+#output {
+margin-top: 30px;
+font-size: 1.3em;
+color: #444;
+min-height: 2em;
+}
