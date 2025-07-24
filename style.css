@@ -1,3 +1,37 @@
+chat-unic-section {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+.email-info {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 4px;
+}
+.email-expl {
+    background: #e3f2fd;
+    color: #2176ae;
+    padding: 6px 16px;
+    border-radius: 8px;
+    font-size: 1.05em;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(33,118,174,0.08);
+}
+.email-form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+}
+#email-btn {
+    background: linear-gradient(90deg, #2176ae 60%, #2ebc4f 100%);
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    transition: background 0.2s;
+}
+#email-btn:hover {
+    background: linear-gradient(90deg, #2ebc4f 60%, #2176ae 100%);
+}
 body {
     background: #fff8e6;
     font-family: Arial, sans-serif;
@@ -20,13 +54,29 @@ header {
 }
 .lang-flags {
     margin-top: 10px;
+    display: flex;
+    gap: 4px;
 }
 .lang-flags img {
     width: 32px;
-    margin: 0 3px;
+    margin: 0 2px;
     cursor: pointer;
     border-radius: 50%;
     border: 1px solid #ccc;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+}
+.lang-flags-left {
+    justify-content: flex-start;
+    margin-left: 30px;
+    margin-bottom: 0;
+    margin-top: 0;
+    position: absolute;
+    left: 0;
+    top: 20px;
+    z-index: 10;
+}
+header {
+    position: relative;
 }
 .main-cards {
     display: flex;
