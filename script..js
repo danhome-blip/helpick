@@ -1,23 +1,21 @@
-function startListening() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = 'ro-RO';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
 
+function startListening() {
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
     document.getElementById("userInput").value = transcript;
-    sendMessage(); // trimite automat
+    sendMessage();
   };
 
   recognition.onerror = (event) => {
     console.error("Eroare recunoaștere:", event.error);
+    alert("Eroare la microfon: " + event.error);
   };
 
   recognition.start();
 }
 
-window.sendMessage = function () {
+function sendMessage() {
   const userInput = document.getElementById("userInput");
   const message = userInput.value.trim();
   if (message === "") return;
@@ -35,4 +33,3 @@ window.sendMessage = function () {
   chatBox.appendChild(botDiv);
 
   userInput.value = "";
-};
