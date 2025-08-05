@@ -1,32 +1,15 @@
 <!DOCTYPE html>
 <html lang="ro">
-<head>
-  <meta charset="UTF-8">
-  <title>Helpick</title>
-  <style>
-    .chat-box { margin-top: 20px; }
-    .user-question { font-weight: bold; }
-    .helpick-response { color: green; }
-    .input-area { margin-top: 10px; }
-  </style>
-</head>
-<body>
-  <div class="button-row">
-    <button class="helpick-btn">🍽️ Unde mănânc?</button>
-    <button class="helpick-btn">🎵 Ce muzică ascult?</button>
-    <button class="helpick-btn">🍳 Ce gătesc?</button>
-  </div>
-
-  <div class="chat-box">
-    <p class="intro">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</p>
-  </div>
-
-  <div class="input-area">
-    <input type="text" id="userInput" placeholder="Scrie ceva..." />
-    <button onclick="sendMessage()">Trimite</button>
-    <button onclick="startListening()" title="Apasă și vorbește">🎤</button>
-  </div>
-
-  <script src="script.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Helpick - Chat Asistent Inteligent</title>
+    <meta name="description" content="Helpick - Chat inteligent pentru găsirea rapidă de muzică, locații și rețete culinare, cu răspunsuri scrise și vocale.">
+    <link rel="stylesheet" href="style.css" />
+    <link rel="icon" type="image/png" href="logo.png"/>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>Activează JavaScript pentru a utiliza Helpick!</noscript>
+  </body>
 </html>
