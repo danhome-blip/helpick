@@ -2,14 +2,39 @@
 <html lang="ro">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Helpick - Chat Asistent Inteligent</title>
-    <meta name="description" content="Helpick - Chat inteligent pentru găsirea rapidă de muzică, locații și rețete culinare, cu răspunsuri scrise și vocale.">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Helpick</title>
     <link rel="stylesheet" href="style.css" />
-    <link rel="icon" type="image/png" href="logo.png"/>
   </head>
   <body>
-    <div id="root"></div>
-    <noscript>Activează JavaScript pentru a utiliza Helpick!</noscript>
+    <header>
+      <button id="menu-button">☰</button>
+      <h1 class="logo">Helpick</h1>
+    </header>
+
+    <nav id="sidebar">
+      <ul>
+        <li>Muzică</li>
+        <li>Locuri</li>
+        <li>Rețete</li>
+      </ul>
+    </nav>
+
+    <main>
+      <div id="chat-feed"></div>
+
+      <form id="chat-form">
+        <textarea
+          id="chat-input"
+          rows="1"
+          placeholder="Scrie aici..."
+        ></textarea>
+        <button type="button" id="mic-button">🎤</button>
+        <button type="submit">Trimite</button>
+      </form>
+    </main>
+
+    <script src="speech.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
