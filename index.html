@@ -2,29 +2,36 @@
 <html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Helpick</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="chat-container">
-    <header>
-      <h1>Helpick</h1>
-      <div class="nav-buttons">
-        <button onclick="getFood()">🍽️ Unde mănânc?</button>
-        <button onclick="getMusic()">🎵 Ce muzică ascult?</button>
-        <button onclick="getRecipe()">🍳 Ce gătesc?</button>
+  <div class="container">
+    <h1>Helpick</h1>
+    
+    <div class="button-row">
+      <button class="helpick-btn">📍 Unde mănânc?</button>
+      <button class="helpick-btn">🎵 Ce muzică ascult?</button>
+      <button class="helpick-btn">🍳 Ce gătesc?</button>
+    </div>
+    
+    <div class="chat-box">
+      <p class="intro">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</p>
+      <div class="user-question">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
+      <div class="helpick-response">
+        Sigur! Uite aici o idee rapidă: 
+        <a href="https://jamila.ro/omleta-cu-ceapa-caramelizata/" target="_blank">Omletă simplă cu ceapă caramelizată</a>
       </div>
-    </header>
-    <main id="chat-log">
-      <div class="bot-message">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</div>
-      <div class="user-message">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
-      <div class="bot-message">Sigur! Uite aici o idee rapidă: <a href="https://www.delicatesa.ro/reteta/omleta-cu-ceapa-caramelizata.html" target="_blank">Omletă simplă cu ceapă caramelizată</a></div>
-    </main>
-    <form id="chat-form">
-      <input type="text" id="user-input" placeholder="Scrie ceva..." />
-      <button type="submit">Trimite</button>
-    </form>
+    </div>
+
+    <div class="input-area">
+      <input type="text" id="userInput" placeholder="Scrie ceva..." />
+      <button onclick="sendMessage()">Trimite</button>
+      <button id="micButton" onclick="startListening()" title="Apasă și vorbește">
+        🎤
+      </button>
+    </div>
   </div>
 
   <script src="script.js"></script>
