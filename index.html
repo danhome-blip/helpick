@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ro">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Helpick</title>
   <link rel="stylesheet" href="style.css" />
 </head>
@@ -12,10 +12,15 @@
       <h1>Helpick</h1>
     </header>
     <main id="chat-log">
-      <div class="bot-message">Salut! Sunt Helpick. Întreabă-mă ceva.</div>
+      <div class="bot-message">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</div>
+      <div class="user-message">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
+      <div class="bot-message">
+        Sigur! Uite aici o idee rapidă:
+        <a href="https://example.com/omleta-ceapa" target="_blank">Omletă simplă cu ceapă caramelizată</a>
+      </div>
     </main>
     <form id="chat-form">
-      <input type="text" id="user-input" placeholder="Scrie aici..." autocomplete="off" />
+      <input type="text" id="user-input" placeholder="Scrie ceva..." />
       <button type="submit">Trimite</button>
     </form>
   </div>
