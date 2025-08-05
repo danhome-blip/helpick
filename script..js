@@ -31,6 +31,7 @@ function startListening() {
 }
 
 function sendMessage() {
+  const userInput = document.getElementById("userInput");
   const message = userInput.value.trim();
   if (message === "") return;
 
