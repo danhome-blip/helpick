@@ -30,7 +30,7 @@ function startListening() {
   recognition.start();
 }
 
-function sendMessage() {
+window.sendMessage = function() {
   const userInput = document.getElementById("userInput");
   const message = userInput.value.trim();
   if (message === "") return;
