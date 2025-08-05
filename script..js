@@ -1,44 +1,50 @@
-const userInput = document.getElementById('userInput');
+const userInput = document.getElementById("userInput");
+const responseBox = document.querySelector(".helpick-response");
 
 function startListening() {
-  if (!('webkitSpeechRecognition' in window)) {
+  if (!("webkitSpeechRecognition" in window)) {
     alert("Browserul tău nu suportă recunoașterea vocală.");
     return;
   }
 
   const recognition = new webkitSpeechRecognition();
-  recognition.lang = 'ro-RO';
+  recognition.lang = "ro-RO";
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
   recognition.onstart = () => {
-    console.log("🎤 Ascult...");
+    console.log("Ascult...");
   };
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    console.log("✅ Recunoscut:", transcript);
+    console.log("Recunoscut:", transcript);
     userInput.value = transcript;
-    sendMessage(); // poți comenta asta dacă nu vrei să trimită automat
+    sendMessage(); // trimite automat după recunoaștere
   };
 
   recognition.onerror = (event) => {
-    console.error("❌ Eroare:", event.error);
-    alert("Eroare microfon: " + event.error);
+    console.error("Eroare recunoaștere:", event.error);
   };
 
   recognition.start();
 }
 
 function sendMessage() {
-  const input = userInput.value.trim();
-  if (input === "") return;
+  const message = userInput.value.trim();
+  if (message === "") return;
 
-  console.log("📩 Trimis:", input);
+  const userDiv = document.createElement("div");
+  userDiv.className = "user-question";
+  userDiv.textContent = message;
 
-  // Aici pui ce vrei să facă: afișare răspuns, query, etc.
-  const responseBox = document.querySelector('.helpick-response');
-  responseBox.innerHTML = "Am primit: " + input;
+  const botDiv = document.createElement("div");
+  botDiv.className = "helpick-response";
+  botDiv.textContent = "Am primit mesajul tău: " + message;
+
+  const chatBox = document.querySelector(".chat-box");
+  chatBox.appendChild(userDiv);
+  chatBox.appendChild(botDiv);
 
   userInput.value = "";
 }
