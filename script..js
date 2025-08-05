@@ -1,26 +1,13 @@
-const userInput = document.getElementById("userInput");
-const responseBox = document.querySelector(".helpick-response");
-
 function startListening() {
-  if (!("webkitSpeechRecognition" in window)) {
-    alert("Browserul tău nu suportă recunoașterea vocală.");
-    return;
-  }
-
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "ro-RO";
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'ro-RO';
   recognition.interimResults = false;
   recognition.maxAlternatives = 1;
 
-  recognition.onstart = () => {
-    console.log("Ascult...");
-  };
-
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    console.log("Recunoscut:", transcript);
-    userInput.value = transcript;
-    sendMessage(); // trimite automat după recunoaștere
+    document.getElementById("userInput").value = transcript;
+    sendMessage(); // trimite automat
   };
 
   recognition.onerror = (event) => {
@@ -30,7 +17,7 @@ function startListening() {
   recognition.start();
 }
 
-window.sendMessage = function() {
+window.sendMessage = function () {
   const userInput = document.getElementById("userInput");
   const message = userInput.value.trim();
   if (message === "") return;
@@ -48,4 +35,4 @@ window.sendMessage = function() {
   chatBox.appendChild(botDiv);
 
   userInput.value = "";
-}
+};
