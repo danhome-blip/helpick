@@ -1,77 +1,58 @@
-const chatContainer = document.getElementById("chatContainer");
-const userInput = document.getElementById("userInput");
-const sidebar = document.getElementById("sidebar");
-const menuButton = document.getElementById("menuButton");
+// Toggle bară laterală
+document.getElementById("toggleMenu").addEventListener("click", () => {
+  const sidebar = document.getElementById("sidebar");
+  sidebar.classList.toggle("hidden");
+});
 
-let recognition;
-
-if ('webkitSpeechRecognition' in window) {
-  recognition = new webkitSpeechRecognition();
-  recognition.lang = 'ro-RO';
-  recognition.continuous = false;
-  recognition.interimResults = false;
-} else {
-  console.warn("Speech Recognition nu este suportat în acest browser.");
-}
-
-menuButton.onclick = () => {
-  sidebar.classList.toggle("active");
-};
-
-function appendMessage(sender, text) {
+// Trimite mesaj text
+function sendMessage(text) {
+  if (!text.trim()) return;
+  const chatFeed = document.getElementById("chatFeed");
   const message = document.createElement("div");
-  message.className = "message " + sender;
-  message.innerHTML = `<span class="${sender}">${sender === 'user' ? 'Tu' : 'Helpick'}:</span> ${text}`;
-  chatContainer.appendChild(message);
-  chatContainer.scrollTop = chatContainer.scrollHeight;
+  message.textContent = text;
+  chatFeed.appendChild(message);
+  document.getElementById("userInput").value = "";
+  chatFeed.scrollTop = chatFeed.scrollHeight;
 }
 
-function sendMessage() {
-  const text = userInput.value.trim();
-  if (text === "") return;
+// Buton Trimite
+document.getElementById("sendButton").addEventListener("click", () => {
+  const text = document.getElementById("userInput").value;
+  sendMessage(text);
+});
 
-  appendMessage("user", text);
+// Enter în textarea
+document.getElementById("userInput").addEventListener("keydown", (e) => {
+  const textarea = e.target;
+  textarea.style.height = "auto";
+  textarea.style.height = Math.min(textarea.scrollHeight, 100) + "px";
 
-  // Simulează răspuns bot (înlocuiește aici cu backend când ai)
-  let reply = getBotReply(text);
-  appendMessage("bot", reply);
+  if (e.key === "Enter" && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage(textarea.value);
+  }
+});
 
-  userInput.value = "";
-  userInput.style.height = "auto";
-}
+// Microfon
+document.getElementById("micButton").addEventListener("click", () => {
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Browserul tău nu suportă Speech Recognition.");
+    return;
+  }
 
-function startListening() {
-  if (!recognition) return;
-  recognition.start();
+  const recognition = new webkitSpeechRecognition();
+  recognition.lang = "ro-RO";
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    userInput.value = transcript;
-    sendMessage();
+    document.getElementById("userInput").value = transcript;
   };
 
   recognition.onerror = (event) => {
-    console.error("Eroare la recunoașterea vocală:", event.error);
+    alert("Eroare la recunoaștere vocală: " + event.error);
   };
-}
 
-function handleMenu(opt) {
-  let msg = "";
-  if (opt === "muzica") {
-    msg = 'Playlist recomandat: <a href="https://www.youtube.com/results?search_query=muzică+relaxantă" target="_blank">YouTube - muzică relaxantă</a>';
-  } else if (opt === "locuri") {
-    msg = 'Caută locații: <a href="https://www.google.com/maps/search/restaurante+în+apropiere" target="_blank">Google Maps - restaurante</a>';
-  } else if (opt === "retete") {
-    msg = 'Rețete originale: <a href="https://www.jamieoliver.com/recipes/" target="_blank">Jamie Oliver</a>';
-  }
-
-  appendMessage("bot", msg);
-  sidebar.classList.remove("active");
-}
-
-// Auto-extindere textarea (maxim 4 rânduri)
-userInput.addEventListener("input", () => {
-  userInput.style.height = "auto";
-  const maxHeight = 4 * 24; // 4 rânduri * 24px aproximativ
-  userInput.style.height = Math.min(userInput.scrollHeight, maxHeight) + "px";
+  recognition.start();
 });
