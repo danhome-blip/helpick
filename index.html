@@ -4,34 +4,34 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Helpick</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    .chat-box { margin-top: 20px; }
+    .user-question { font-weight: bold; }
+    .helpick-response { color: green; margin-bottom: 10px; }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Helpick</h1>
-    
-    <div class="button-row">
-      <button class="helpick-btn">📍 Unde mănânc?</button>
-      <button class="helpick-btn">🎵 Ce muzică ascult?</button>
-      <button class="helpick-btn">🍳 Ce gătesc?</button>
-    </div>
-    
-    <div class="chat-box">
-      <p class="intro">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</p>
-      <div class="user-question">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
-      <div class="helpick-response">
-        Sigur! Uite aici o idee rapidă: 
-        <a href="https://jamila.ro/omleta-cu-ceapa-caramelizata/" target="_blank">Omletă simplă cu ceapă caramelizată</a>
-      </div>
-    </div>
 
-    <div class="input-area">
-      <input type="text" id="userInput" placeholder="Scrie ceva..." />
-      <button onclick="sendMessage()">Trimite</button>
-      <button id="micButton" onclick="startListening()" title="Apasă și vorbește">
-        🎤
-      </button>
+  <div class="button-row">
+    <button class="helpick-btn">🍽️ Unde mănânc?</button>
+    <button class="helpick-btn">🎵 Ce muzică ascult?</button>
+    <button class="helpick-btn">🍳 Ce gătesc?</button>
+  </div>
+
+  <div class="chat-box">
+    <p class="intro">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</p>
+    <div class="user-question">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
+    <div class="helpick-response">
+      Sigur! Uite aici o idee rapidă:
+      <a href="https://jamila.ro/omleta-cu-ceapa-caramelizata/" target="_blank">Omletă Jamila</a>
     </div>
+  </div>
+
+  <div class="input-area">
+    <label for="userInput">Scrie ceva:</label><br/>
+    <input type="text" id="userInput" name="userInput" placeholder="Scrie ceva..." />
+    <button onclick="sendMessage()">Trimite</button>
+    <button id="micButton" onclick="startListening()" title="Apasă și vorbește">🎤</button>
   </div>
 
   <script src="script.js"></script>
