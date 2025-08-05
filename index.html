@@ -10,20 +10,23 @@
   <div class="chat-container">
     <header>
       <h1>Helpick</h1>
+      <div class="nav-buttons">
+        <button onclick="getFood()">🍽️ Unde mănânc?</button>
+        <button onclick="getMusic()">🎵 Ce muzică ascult?</button>
+        <button onclick="getRecipe()">🍳 Ce gătesc?</button>
+      </div>
     </header>
     <main id="chat-log">
       <div class="bot-message">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</div>
       <div class="user-message">Găsește-mi o rețetă rapidă cu ceapă și ouă.</div>
-      <div class="bot-message">
-        Sigur! Uite aici o idee rapidă:
-        <a href="https://example.com/omleta-ceapa" target="_blank">Omletă simplă cu ceapă caramelizată</a>
-      </div>
+      <div class="bot-message">Sigur! Uite aici o idee rapidă: <a href="https://www.delicatesa.ro/reteta/omleta-cu-ceapa-caramelizata.html" target="_blank">Omletă simplă cu ceapă caramelizată</a></div>
     </main>
     <form id="chat-form">
       <input type="text" id="user-input" placeholder="Scrie ceva..." />
       <button type="submit">Trimite</button>
     </form>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>
