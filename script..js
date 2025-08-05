@@ -1,14 +1,15 @@
-function sendMessage() {
-  const input = document.getElementById("userInput").value;
-  if (input.trim() === "") return;
+const userInput = document.getElementById('userInput');
 
-  alert("Ai scris: " + input);
-}
-
-// Voice input – Web Speech API
 function startListening() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  if (!('webkitSpeechRecognition' in window)) {
+    alert("Browserul tău nu suportă recunoașterea vocală.");
+    return;
+  }
+
+  const recognition = new webkitSpeechRecognition();
   recognition.lang = 'ro-RO';
+  recognition.interimResults = false;
+  recognition.maxAlternatives = 1;
 
   recognition.onstart = () => {
     console.log("🎤 Ascult...");
@@ -16,12 +17,28 @@ function startListening() {
 
   recognition.onresult = (event) => {
     const transcript = event.results[0][0].transcript;
-    document.getElementById("userInput").value = transcript;
+    console.log("✅ Recunoscut:", transcript);
+    userInput.value = transcript;
+    sendMessage(); // poți comenta asta dacă nu vrei să trimită automat
   };
 
   recognition.onerror = (event) => {
-    alert("Eroare la recunoaștere vocală: " + event.error);
+    console.error("❌ Eroare:", event.error);
+    alert("Eroare microfon: " + event.error);
   };
 
   recognition.start();
+}
+
+function sendMessage() {
+  const input = userInput.value.trim();
+  if (input === "") return;
+
+  console.log("📩 Trimis:", input);
+
+  // Aici pui ce vrei să facă: afișare răspuns, query, etc.
+  const responseBox = document.querySelector('.helpick-response');
+  responseBox.innerHTML = "Am primit: " + input;
+
+  userInput.value = "";
 }
