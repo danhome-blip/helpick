@@ -1,38 +1,32 @@
-function startListening() {
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-  recognition.lang = 'ro-RO';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Helpick</title>
+  <style>
+    .chat-box { margin-top: 20px; }
+    .user-question { font-weight: bold; }
+    .helpick-response { color: green; }
+    .input-area { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <div class="button-row">
+    <button class="helpick-btn">🍽️ Unde mănânc?</button>
+    <button class="helpick-btn">🎵 Ce muzică ascult?</button>
+    <button class="helpick-btn">🍳 Ce gătesc?</button>
+  </div>
 
-  recognition.onresult = (event) => {
-    const transcript = event.results[0][0].transcript;
-    document.getElementById("userInput").value = transcript;
-    sendMessage(); // trimite automat
-  };
+  <div class="chat-box">
+    <p class="intro">Salut! Eu sunt Helpick – ce pot face azi pentru tine?</p>
+  </div>
 
-  recognition.onerror = (event) => {
-    console.error("Eroare recunoaștere:", event.error);
-  };
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Scrie ceva..." />
+    <button onclick="sendMessage()">Trimite</button>
+    <button onclick="startListening()" title="Apasă și vorbește">🎤</button>
+  </div>
 
-  recognition.start();
-}
-
-window.sendMessage = function () {
-  const userInput = document.getElementById("userInput");
-  const message = userInput.value.trim();
-  if (message === "") return;
-
-  const userDiv = document.createElement("div");
-  userDiv.className = "user-question";
-  userDiv.textContent = message;
-
-  const botDiv = document.createElement("div");
-  botDiv.className = "helpick-response";
-  botDiv.textContent = "Am primit mesajul tău: " + message;
-
-  const chatBox = document.querySelector(".chat-box");
-  chatBox.appendChild(userDiv);
-  chatBox.appendChild(botDiv);
-
-  userInput.value = "";
-};
+  <script src="script.js"></script>
+</body>
+</html>
