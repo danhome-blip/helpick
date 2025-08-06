@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Helpick</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -36,124 +36,98 @@
       cursor: pointer;
     }
 
+    .signout-button {
+      position: absolute;
+      right: 15px;
+      top: 15px;
+      background: none;
+      border: none;
+      font-size: 16px;
+      color: white;
+      cursor: pointer;
+    }
+
     .sidebar {
       position: fixed;
       top: 0;
-      left: -220px;
-      width: 220px;
+      left: -250px;
+      width: 250px;
       height: 100%;
-      background-color: white;
-      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-      transition: left 0.3s ease;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
       padding: 20px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+      transition: left 0.3s ease;
+      z-index: 1001;
     }
 
     .sidebar.open {
       left: 0;
     }
 
-    .menu-items {
-      list-style: none;
-      padding: 0;
-    }
-
     .menu-items li {
+      list-style: none;
       margin-bottom: 15px;
       font-size: 18px;
-      color: #333;
-    }
-
-    .auth-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+      cursor: pointer;
     }
 
     .auth-buttons button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
       padding: 10px;
       font-size: 16px;
-      border: none;
       cursor: pointer;
-      border-radius: 5px;
     }
 
-    .auth-buttons .login {
-      background-color: #5e91d2;
-      color: white;
-    }
-
-    .auth-buttons .signup {
-      background-color: #ccc;
-      color: #333;
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.3);
+      display: none;
+      z-index: 1000;
     }
 
     .content {
-      padding: 20px;
-      margin-top: 60px;
-    }
-
-    .message {
-      margin-bottom: 10px;
+      padding: 30px;
     }
 
     .input-area {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-top: 1px solid #ccc;
       position: fixed;
       bottom: 0;
       width: 100%;
-      background-color: white;
+      background: #fff;
+      padding: 10px;
+      box-shadow: 0 -1px 5px rgba(0,0,0,0.1);
     }
 
-    .input-area textarea {
-      flex: 1;
+    textarea {
+      width: 80%;
+      padding: 10px;
       resize: none;
       max-height: 100px;
-      padding: 10px;
-      font-size: 16px;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      outline: none;
+      font-size: 14px;
     }
 
-    .input-area button {
+    button.send {
+      padding: 10px 20px;
+      font-size: 14px;
       margin-left: 10px;
-      background-color: #5e91d2;
-      border: none;
-      color: white;
-      padding: 10px 16px;
-      border-radius: 5px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-
-    @media (max-width: 600px) {
-      header {
-        font-size: 20px;
-      }
-
-      .menu-items li {
-        font-size: 16px;
-      }
-
-      .auth-buttons button {
-        font-size: 14px;
-        padding: 8px;
-      }
     }
   </style>
 </head>
 <body>
 
   <header>
-    <button class="menu-button" onclick="toggleSidebar()">☰</button>
+    <button class="menu-button" onclick="toggleSidebar()">≡</button>
     Helpick
+    <button class="signout-button" onclick="signOut()">Sign out</button>
   </header>
+
+  <div id="overlay" onclick="toggleSidebar()"></div>
 
   <div class="sidebar" id="sidebar">
     <ul class="menu-items">
@@ -172,32 +146,33 @@
   </div>
 
   <div class="input-area">
-    <textarea id="input" rows="1" placeholder="Scrie aici..." oninput="autoResize(this)"></textarea>
-    <button onclick="sendMessage()">Trimite</button>
+    <textarea id="input" rows="2" placeholder="Scrie aici..."></textarea>
+    <button class="send" onclick="sendMessage()">Trimite</button>
   </div>
 
   <script>
     function toggleSidebar() {
-      document.getElementById("sidebar").classList.toggle("open");
+      const sidebar = document.getElementById('sidebar');
+      const overlay = document.getElementById('overlay');
+      const isOpen = sidebar.classList.contains('open');
+      sidebar.classList.toggle('open');
+      overlay.style.display = isOpen ? 'none' : 'block';
     }
 
     function sendMessage() {
-      const input = document.getElementById("input");
-      const text = input.value.trim();
-      if (!text) return;
-      const chat = document.getElementById("chat");
-      const msg = document.createElement("div");
-      msg.className = "message";
-      msg.innerText = text;
-      chat.appendChild(msg);
-      input.value = "";
-      autoResize(input);
-      chat.scrollTop = chat.scrollHeight;
+      const input = document.getElementById('input');
+      const chat = document.getElementById('chat');
+      if (input.value.trim() !== '') {
+        const msg = document.createElement('div');
+        msg.className = 'message';
+        msg.innerText = input.value;
+        chat.appendChild(msg);
+        input.value = '';
+      }
     }
 
-    function autoResize(textarea) {
-      textarea.style.height = "auto";
-      textarea.style.height = Math.min(textarea.scrollHeight, 100) + "px";
+    function signOut() {
+      alert('Ai fost delogat. (Simulare)');
     }
   </script>
 
