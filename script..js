@@ -82,26 +82,21 @@ document.getElementById("userInput").addEventListener("keydown", (e) => {
   }
 });
 
-// Microfon
-document.getElementById("micButton").addEventListener("click", () => {
-  if (!('webkitSpeechRecognition' in window)) {
-    alert("Browserul tău nu suportă Speech Recognition.");
-    return;
-  }
-
-  const recognition = new webkitSpeechRecognition();
-  recognition.lang = "ro-RO";
+function startListening() {
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  recognition.lang = 'ro-RO';
   recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
 
-  recognition.onresult = (event) => {
+  recognition.onresult = function(event) {
     const transcript = event.results[0][0].transcript;
-    document.getElementById("userInput").value = transcript;
+    const input = document.getElementById('input');
+    input.value = transcript;
+    sendMessage();
   };
 
-  recognition.onerror = (event) => {
-    alert("Eroare la recunoaștere vocală: " + event.error);
+  recognition.onerror = function(event) {
+    alert("Eroare la microfon: " + event.error);
   };
 
   recognition.start();
-});
+}
