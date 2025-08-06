@@ -4,200 +4,202 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Helpick</title>
-  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
-<style>
-  body, html {
-    font-family: 'Open Sans', sans-serif;
-  }
-</style>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet" />
+  <style>
     * {
+      margin: 0;
       box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
       background-color: #f9f9f9;
     }
 
     header {
-      background-color: #e3f1ee;
+      background-color: #5e91d2;
       padding: 15px;
-      text-align: center;
-      color: #5e9182;
+      color: white;
       font-size: 24px;
-      font-weight: bold;
+      text-align: center;
       position: relative;
     }
 
-    #menuButton {
+    .menu-button {
       position: absolute;
       left: 15px;
       top: 15px;
       background: none;
       border: none;
       font-size: 24px;
+      color: white;
       cursor: pointer;
-      color: #5e9182;
     }
 
-    #sideMenu {
+    .sidebar {
       position: fixed;
-      left: -220px;
       top: 0;
+      left: -220px;
+      width: 220px;
       height: 100%;
-      width: 200px;
       background-color: white;
-      border-right: 1px solid #ccc;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+      transition: left 0.3s ease;
       padding: 20px;
-      transition: left 0.3s;
-      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
     }
 
-    #sideMenu.active {
+    .sidebar.open {
       left: 0;
     }
 
-    #sideMenu h3 {
-      margin-top: 0;
+    .menu-items {
+      list-style: none;
+      padding: 0;
     }
 
-    #chatFeed {
+    .menu-items li {
+      margin-bottom: 15px;
+      font-size: 18px;
+      color: #333;
+    }
+
+    .auth-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .auth-buttons button {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+
+    .auth-buttons .login {
+      background-color: #5e91d2;
+      color: white;
+    }
+
+    .auth-buttons .signup {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .content {
       padding: 20px;
-      height: calc(100vh - 150px);
-      overflow-y: auto;
-      background-color: white;
+      margin-top: 60px;
     }
 
     .message {
-      margin-bottom: 12px;
-      padding: 10px 15px;
-      background-color: #e9f7f3;
-      border-radius: 12px;
-      max-width: 80%;
+      margin-bottom: 10px;
     }
 
-    #inputContainer {
+    .input-area {
       display: flex;
       align-items: center;
-      padding: 10px 15px;
+      padding: 10px;
       border-top: 1px solid #ccc;
-      background-color: #fff;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background-color: white;
     }
 
-    #textInput {
+    .input-area textarea {
       flex: 1;
-      padding: 10px 15px;
-      font-size: 16px;
-      border-radius: 20px;
-      border: 1px solid #ccc;
       resize: none;
-      max-height: 120px;
-      overflow-y: auto;
+      max-height: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      outline: none;
     }
 
-    #micButton {
+    .input-area button {
       margin-left: 10px;
-      background-color: #5e9182;
+      background-color: #5e91d2;
       border: none;
       color: white;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      font-size: 18px;
+      padding: 10px 16px;
+      border-radius: 5px;
       cursor: pointer;
+      font-size: 16px;
     }
 
     @media (max-width: 600px) {
-      #chatFeed {
-        height: calc(100vh - 140px);
+      header {
+        font-size: 20px;
+      }
+
+      .menu-items li {
+        font-size: 16px;
+      }
+
+      .auth-buttons button {
+        font-size: 14px;
+        padding: 8px;
       }
     }
   </style>
 </head>
 <body>
+
   <header>
-    <button id="menuButton">☰</button>
+    <button class="menu-button" onclick="toggleSidebar()">☰</button>
     Helpick
   </header>
 
-  <div id="sideMenu">
-    <h3>Meniu</h3>
-    <ul>
+  <div class="sidebar" id="sidebar">
+    <ul class="menu-items">
       <li>Muzică</li>
       <li>Locuri</li>
       <li>Rețete</li>
     </ul>
+    <div class="auth-buttons">
+      <button class="login">Log in</button>
+      <button class="signup">Sign up</button>
+    </div>
   </div>
 
-  <div id="chatFeed"></div>
+  <div class="content" id="chat">
+    <div class="message">Bun venit la Helpick!</div>
+  </div>
 
-  <div id="inputContainer">
-    <textarea id="textInput" rows="1" placeholder="Scrie aici..."></textarea>
-    <button id="micButton">🎤</button>
+  <div class="input-area">
+    <textarea id="input" rows="1" placeholder="Scrie aici..." oninput="autoResize(this)"></textarea>
+    <button onclick="sendMessage()">Trimite</button>
   </div>
 
   <script>
-    const textInput = document.getElementById("textInput");
-    const chatFeed = document.getElementById("chatFeed");
-    const micButton = document.getElementById("micButton");
-    const menuButton = document.getElementById("menuButton");
-    const sideMenu = document.getElementById("sideMenu");
-
-    // Trimite text la Enter
-    textInput.addEventListener("keydown", function (e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        const text = textInput.value.trim();
-        if (text) {
-          addMessage(text);
-          textInput.value = "";
-          textInput.style.height = "auto";
-        }
-      }
-    });
-
-    // Buton meniu
-    menuButton.addEventListener("click", () => {
-      sideMenu.classList.toggle("active");
-    });
-
-    // Autofit pentru textarea
-    textInput.addEventListener("input", () => {
-      textInput.style.height = "auto";
-      const lines = textInput.value.split("\n").length;
-      const maxRows = 4;
-      if (lines <= maxRows) {
-        textInput.style.height = textInput.scrollHeight + "px";
-      }
-    });
-
-    // Adaugă mesaj în feed
-    function addMessage(text) {
-      const msg = document.createElement("div");
-      msg.className = "message";
-      msg.textContent = text;
-      chatFeed.appendChild(msg);
-      chatFeed.scrollTop = chatFeed.scrollHeight;
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("open");
     }
 
-    // Voice to text (basic)
-    micButton.addEventListener("click", () => {
-      if (!("webkitSpeechRecognition" in window)) {
-        alert("Browserul tău nu suportă recunoaștere vocală.");
-        return;
-      }
+    function sendMessage() {
+      const input = document.getElementById("input");
+      const text = input.value.trim();
+      if (!text) return;
+      const chat = document.getElementById("chat");
+      const msg = document.createElement("div");
+      msg.className = "message";
+      msg.innerText = text;
+      chat.appendChild(msg);
+      input.value = "";
+      autoResize(input);
+      chat.scrollTop = chat.scrollHeight;
+    }
 
-      const recognition = new webkitSpeechRecognition();
-      recognition.lang = "ro-RO";
-      recognition.start();
-
-      recognition.onresult = function (event) {
-        const transcript = event.results[0][0].transcript;
-        textInput.value = transcript;
-        textInput.dispatchEvent(new Event("input"));
-      };
-    });
+    function autoResize(textarea) {
+      textarea.style.height = "auto";
+      textarea.style.height = Math.min(textarea.scrollHeight, 100) + "px";
+    }
   </script>
+
 </body>
 </html>
