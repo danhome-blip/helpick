@@ -24,7 +24,7 @@ function handleEnter(event) {
     sendMessage();
   }
 }
-
+window.handleEnter = handle Enter;
 let recognition;
 function toggleMic() {
   if (!('webkitSpeechRecognition' in window)) {
