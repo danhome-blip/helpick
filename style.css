@@ -92,3 +92,53 @@ button {
   background-color: #ddd;
   font-size: 18px;
 }
+.input-area {
+  padding: 12px;
+  background: #f9f9f9;
+  border-top: 1px solid #ddd;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper textarea {
+  flex: 1;
+  resize: none;
+  padding: 10px 80px 10px 12px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  height: 40px;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.buttons {
+  position: absolute;
+  right: 10px;
+  display: flex;
+  gap: 6px;
+}
+
+.buttons button {
+  background: black;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttons button:hover {
+  background: #333;
+}
