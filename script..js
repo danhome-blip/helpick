@@ -14,6 +14,14 @@ function sendMessage(text) {
   document.getElementById("userInput").value = "";
   chatFeed.scrollTop = chatFeed.scrollHeight;
 }
+function handleEnter(event) {
+  if (event.key === "Enter" && !event.shiftKey) {
+    event.preventDefault(); // oprește linia nouă
+    const input = document.getElementById("input");
+    sendMessage(input.value);
+    input.value = ""; // curăță după trimitere
+  }
+}
 
 // Buton Trimite
 document.getElementById("sendButton").addEventListener("click", () => {
