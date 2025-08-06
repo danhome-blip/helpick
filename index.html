@@ -143,7 +143,7 @@
 
   <div class="content" id="chat">
     <div class="message">Bun venit la Helpick!</div>
- <div id="inputContainer" style="display: flex; align-items: center; gap: 8px; padding: 10px;">
+<div id="inputContainer" style="display: flex; align-items: center; gap: 8px; padding: 10px; position: fixed; bottom: 0; left: 0; right: 0; background: white;">
   <input
     id="input"
     type="text"
@@ -151,7 +151,7 @@
     onkeydown="handleEnter(event)"
     style="flex: 1; padding: 10px; border-radius: 20px; border: 1px solid #ccc; outline: none; font-size: 16px;"
   />
-  
+
   <!-- Microfon -->
   <button id="micButton" onclick="startListening()" style="background: none; border: none; cursor: pointer;">
     <svg xmlns="http://www.w3.org/2000/svg" height="22" width="22" viewBox="0 0 24 24" fill="#555">
@@ -160,13 +160,15 @@
     </svg>
   </button>
 
-  <!-- Trimite (săgeată) -->
-  <button id="sendButton" onclick="sendMessage()" style="background: none; border: none; cursor: pointer; padding: 4px;">
+  <!-- Trimite -->
+  <button id="sendButton" onclick="sendMessage()" style="background: none; border: none; cursor: pointer;">
     <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 0 24 24" fill="#555">
       <path d="M0 0h24v24H0z" fill="none"/>
       <path d="M2 21l21-9L2 3v7l15 2-15 2z"/>
     </svg>
   </button>
+</div>
+
 </div>
 
 
